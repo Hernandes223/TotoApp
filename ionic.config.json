@@ -1,0 +1,7 @@
+{
+  "name": "totoApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
