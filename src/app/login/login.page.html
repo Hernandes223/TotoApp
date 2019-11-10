@@ -5,18 +5,18 @@
 
   <form #form="ngForm" (ngSubmit)="login(form)" method="post">
     <ion-item class="email">
-      <ion-input  [(ngModel)]="email" name="first"  type="email" placeholder="E-mail" ></ion-input>
+      <ion-input  [(ngModel)]="email" name="email"  type="email" placeholder="E-mail" ></ion-input>
     </ion-item>
 
     <ion-item class="password">
-      <ion-input [(ngModel)]="password" name="first"  placeholder="Senha" type="{{ isViewPass ? 'text' : 'password' }}"></ion-input>
+      <ion-input [(ngModel)]="password" name="password" type="password" placeholder="Senha"></ion-input>
     </ion-item>
     
     <p (click)="onClick()" class="forgot">
       Esqueceu sua senha?
       <p>
         
-        <ion-button expand="block"  type="submit" class="button">
+        <ion-button expand="block"  type="submit" class="button" (click)="presentLoading()">
           Entrar
         </ion-button>
       </form>

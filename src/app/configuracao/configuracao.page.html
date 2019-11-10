@@ -3,10 +3,39 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>configuracao</ion-title>
+    <ion-title>configuração</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-avatar (click)="openGallery()">
+    <img src="../assets/icon/dog.jpg" alt="">
+    <ion-icon name="camera" class="camera"></ion-icon>
+  </ion-avatar>
+  <br />
+  <br />
+  <ion-item (click)="openPerfil()" detail="true">
+    <ion-icon name="person" slot="start"></ion-icon>
+    <ion-label>Perfil do Usuário</ion-label>
+  </ion-item>
 
+  <ion-item (click)="openLink()" detail="true">
+    <ion-icon name="list" slot="start"></ion-icon>
+    <ion-label>Termos de Uso</ion-label>
+  </ion-item>
+
+  <ion-item (click)="openLink()" detail="true">
+    <ion-icon name="lock" slot="start"></ion-icon>
+    <ion-label>Politica Privacidade</ion-label>
+  </ion-item>
+
+  <ion-item (click)="presentAlertV()" detail="true">
+    <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+    <ion-label>Versão</ion-label>
+  </ion-item>
+
+  <ion-item (click)="logout(); presentLoading()" detail="true">
+    <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+    <ion-label>Sair</ion-label>
+  </ion-item>
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController, LoadingController, ToastController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
@@ -20,7 +20,9 @@ export class LoginPage implements OnInit {
     private modalController: ModalController,
     private authService: AuthService,
     private navCtrl: NavController,
-    private alertService: AlertService
+    private alertService: AlertService,
+    public loadingController: LoadingController,
+    public toastController:ToastController
   ) { }
   ngOnInit() {
   }
@@ -28,12 +30,13 @@ export class LoginPage implements OnInit {
   dismissLogin() {
     this.modalController.dismiss();
   }
-  // On Register button tap, dismiss login modal and open register modal
+  // Função de login
   
   login(form: NgForm) {
     this.authService.login(form.value.email, form.value.password).subscribe(
       data => {
-        this.alertService.presentToast("Logged In");
+        this.alertService.presentToast("Voçe esta logado");
+        console.log(data);
       },
       error => {
         console.log(error);
@@ -44,5 +47,27 @@ export class LoginPage implements OnInit {
       }
     );
   }
+  //Carregamento do login/access
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Aguarde...',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+
+    console.log('Carregamento concluido!');
+  }
+
+  //Validação do login
+  // async ErroLogin() {
+  //   const toast = await this.toastController.create({
+  //     header: 'Atenção',
+  //     message: 'E-mail ou senha incorreta',
+  //     duration: 2000
+  //   });
+  //   toast.present();
+  // } 
 
 }

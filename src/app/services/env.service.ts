@@ -5,8 +5,8 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EnvService {
-
-  API_URL = 'http://localhost/totoApi/public/api';
+  
+  API_URL = 'https://frozen-ocean-11440.herokuapp.com/api';
 
   constructor() { }
 
