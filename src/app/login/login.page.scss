@@ -1,5 +1,5 @@
 ion-content {
-    --background:#fff url('/assets/icon/dogwhite.jpg') no-repeat center;
+    --background: #fff url('/assets/icon/dogblack.png') no-repeat center;
 }
 
 ion-icon {
@@ -17,41 +17,42 @@ ion-icon {
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 40px;
-  }
-  .password {
+}
+
+.password {
     border-radius: 30px !important;
     box-shadow: 10px;
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 10px;
+}
 
-  }
+ion-button {
+    --background: #3880ff;
+    --background-activated: #3880ff;
+    --background-focused: #3880ff;
+    --background-hover: #3880ff;
+    --border-color: #3880ff;
+    --border-radius: 30px;
+}
 
-  ion-button {
-      --background: #3880ff;
-      --background-activated: #3880ff;
-      --background-focused: #3880ff;
-      --background-hover: #3880ff;
-      --border-color: #3880ff;
-      --border-radius: 30px;
-      
-  }
-  .button{
-      margin-top: 30px;
-      margin-left: 20px;
-      margin-right: 20px;
-      height: 50px;
-  }
+.button {
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 50px;
+}
 
-  .forgot{
-      text-align: right;
-      color: black;
-      margin-right: 20px;
-      margin-top: 20px;
-  }
-  .account{
-      text-align: left;
-      color: black;
-      margin-left: 20px;
-      margin-top: 20px;
-  }
+.forgot {
+    text-align: right;
+    color: black;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.account {
+    text-align: left;
+    color: black;
+    margin-left: 20px;
+    margin-top: 20px;
+}

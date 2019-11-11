@@ -32,21 +32,36 @@ export class LoginPage implements OnInit {
   }
   // Função de login
   
+async toast(){
+  const toast = await this.toastController.create({
+    message: 'Usuário ou Senha Incorretos',
+    duration: 3000
+  });
+  toast.present();
+}
+
   login(form: NgForm) {
-    this.authService.login(form.value.email, form.value.password).subscribe(
-      data => {
-        this.alertService.presentToast("Voçe esta logado");
-        console.log(data);
-      },
-      error => {
-        console.log(error);
-      },
-      () => {
-        this.dismissLogin();
-        this.navCtrl.navigateRoot('/home');
-      }
-    );
-  }
+    try {
+      this.authService.login(form.value.email, form.value.password).subscribe(
+        data => {
+          this.alertService.presentToast("Voçe esta logado");
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+          this.toast()
+        },
+        () => {
+          this.dismissLogin();
+          this.navCtrl.navigateRoot('/home');
+        }
+      );
+      
+    } catch (error) {
+     
+     }
+    }
+    
   //Carregamento do login/access
   async presentLoading() {
     const loading = await this.loadingController.create({
