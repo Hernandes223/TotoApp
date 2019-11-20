@@ -1,7 +1,6 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
-declare var google;
+import { Component, ViewChild, ChangeDetectorRef, OnInit } from '@angular/core';
+import { environment } from '../../environments/environment';
+import * as mapboxgl from 'mapbox-gl';
 
 
 @Component({
@@ -9,31 +8,55 @@ declare var google;
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
 
-  map: any;
 
-  constructor(private geolocation: Geolocation) { }
+export class HomePage implements OnInit {
+  map: mapboxgl.Map;
+  style = 'mapbox://styles/mapbox/streets-v11';
+  lat = -10.26340452;
+  lng = -48.32551003;
 
+  constructor() {
+
+    (mapboxgl as typeof mapboxgl).accessToken = 'pk.eyJ1IjoiaGVybmFuZGVzMTE3IiwiYSI6ImNrMnRidHN2MjE5cmQzbW1icWhoNWNqcGsifQ.koRdpoTZ5Cl4Iy694CeRJA';
+    
+  }
   ngOnInit() {
-    this.geolocation.getCurrentPosition()
-      .then((resp) => {
-        const position = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+    this.carregaMapa();
+    this.marcaMapa()
+  }
 
-        const mapOptions = {
-          zoom: 18,
-          center: position
-        }
 
-        this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  carregaMapa() {
+    this.map = new mapboxgl.Map({
+      container: 'map',
+      style: this.style,
+      zoom: 18,
+      center: [this.lng, this.lat]
+    });
+    this.map.addControl(new mapboxgl.NavigationControl());
+    console.log(this.map)
+  }
 
-        const marker = new google.maps.Marker({
-          position: position,
-          map: this.map
-        });
 
-      }).catch((error) => {
-        console.log('Erro ao recuperar sua posição', error);
+  marcaMapa(){
+    this.map.on('load', function(e) {
+      var features = this.map.queryRenderedFeatures(e.point, {
+        layers: [''] // replace this with the name of the layer
       });
+    
+      if (!features.length) {
+        return;
+      }
+    
+      var feature = features[0];
+    
+      var popup = new mapboxgl.Popup({ offset: [0, -15] })
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML('<h3>' + feature.properties.title + '</h3><p>' + feature.properties.description + '</p>')
+        .addTo(this.map);
+    });
   }
 }
+
+
