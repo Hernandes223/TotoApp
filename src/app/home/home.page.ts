@@ -1,5 +1,6 @@
 import { Component, ViewChild, ChangeDetectorRef, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
+import * as MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import * as mapboxgl from 'mapbox-gl';
 
 
@@ -23,7 +24,6 @@ export class HomePage implements OnInit {
   }
   ngOnInit() {
     this.carregaMapa();
-    this.marcaMapa()
   }
 
 
@@ -34,29 +34,25 @@ export class HomePage implements OnInit {
       zoom: 18,
       center: [this.lng, this.lat]
     });
-    this.map.addControl(new mapboxgl.NavigationControl());
+
+    var directions = new MapboxDirections({
+      accessToken: mapboxgl.accessToken,
+      unit: 'metric',
+      profile: 'mapbox/driving-traffic',
+      congestion: true,
+      controls: {
+        instructions: false,
+        profileSwitcher: false
+      },
+      placeholderOrigin: 'Informe sua localização atual',
+      placeholderDestination: 'Para onde você quer ir?'
+    });
+    this.map.addControl(directions, 'top-left');
     console.log(this.map)
   }
 
 
-  marcaMapa(){
-    this.map.on('load', function(e) {
-      var features = this.map.queryRenderedFeatures(e.point, {
-        layers: [''] // replace this with the name of the layer
-      });
-    
-      if (!features.length) {
-        return;
-      }
-    
-      var feature = features[0];
-    
-      var popup = new mapboxgl.Popup({ offset: [0, -15] })
-        .setLngLat(feature.geometry.coordinates)
-        .setHTML('<h3>' + feature.properties.title + '</h3><p>' + feature.properties.description + '</p>')
-        .addTo(this.map);
-    });
-  }
+ 
 }
 
 
