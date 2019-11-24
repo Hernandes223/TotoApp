@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
     "@ionic-native/core": "^5.0.0",
-    "@ionic-native/geolocation": "^5.15.1",
+    "@ionic-native/geolocation": "^5.17.0",
     "@ionic-native/google-maps": "^5.5.0",
     "@ionic-native/native-geocoder": "^5.15.1",
     "@ionic-native/native-storage": "^5.15.1",

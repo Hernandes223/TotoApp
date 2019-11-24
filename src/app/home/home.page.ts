@@ -1,7 +1,10 @@
 import { Component, ViewChild, ChangeDetectorRef, OnInit } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import * as MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import * as mapboxgl from 'mapbox-gl';
+import { NavController } from '@ionic/angular';
+
+declare var google;
 
 
 @Component({
@@ -12,27 +15,32 @@ import * as mapboxgl from 'mapbox-gl';
 
 
 export class HomePage implements OnInit {
+
+  startPosition: any;
+  originPosition: string;
+  destinationPosition: string;
+  
   map: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
-  lat = -10.26340452;
-  lng = -48.32551003;
+  
 
-  constructor() {
+  constructor(
+    public navCtrl: NavController,
+    private geolocation: Geolocation
+  ) {}
 
-    (mapboxgl as typeof mapboxgl).accessToken = 'pk.eyJ1IjoiaGVybmFuZGVzMTE3IiwiYSI6ImNrMnRidHN2MjE5cmQzbW1icWhoNWNqcGsifQ.koRdpoTZ5Cl4Iy694CeRJA';
-    
-  }
+
   ngOnInit() {
     this.carregaMapa();
   }
 
 
   carregaMapa() {
+    (mapboxgl as typeof mapboxgl).accessToken = 'pk.eyJ1IjoiaGVybmFuZGVzMTE3IiwiYSI6ImNrMnRidHN2MjE5cmQzbW1icWhoNWNqcGsifQ.koRdpoTZ5Cl4Iy694CeRJA';
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
       zoom: 18,
-      center: [this.lng, this.lat]
     });
 
     var directions = new MapboxDirections({
@@ -48,6 +56,22 @@ export class HomePage implements OnInit {
       placeholderDestination: 'Para onde você quer ir?'
     });
     this.map.addControl(directions, 'top-left');
+
+    this.geolocation.getCurrentPosition()
+      .then((response) => {
+        this.startPosition = response.coords;
+        this.map.setCenter([this.startPosition.longitude, this.startPosition.latitude]);
+        directions.setOrigin([this.startPosition.longitude, this.startPosition.latitude]);
+
+       // Add geolocate control to the map.
+       this.map.addControl(new mapboxgl.GeolocateControl({
+              positionOptions: {
+                enableHighAccuracy: true
+              },
+              trackUserLocation: true
+            }));
+      })
+    
     console.log(this.map)
   }
 
