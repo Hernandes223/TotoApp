@@ -49,8 +49,8 @@ export class HomePage implements OnInit {
       profile: 'mapbox/driving-traffic',
       congestion: true,
       controls: {
-        instructions: false,
-        profileSwitcher: false
+        instructions: true,
+        profileSwitcher: false,
       },
       placeholderOrigin: 'Informe sua localização atual',
       placeholderDestination: 'Para onde você quer ir?'
@@ -71,7 +71,6 @@ export class HomePage implements OnInit {
               trackUserLocation: true
             }));
       })
-    
     console.log(this.map)
   }
 
