@@ -83,7 +83,7 @@ export class HomePage implements OnInit {
         directions.setDestination([this.longRet, this.latRet]);
      
 
-        // Add geolocate control to the map.
+        // Add controle de geolocalização no mapa.
         this.map.addControl(new mapboxgl.GeolocateControl({
           positionOptions: {
             enableHighAccuracy: true
