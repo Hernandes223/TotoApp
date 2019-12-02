@@ -47,7 +47,7 @@ export class HomePage implements OnInit {
     this.carregaMapa();
     this.longRet = parseFloat(localStorage.getItem('longitudeRetorno'))
     this.latRet = parseFloat(localStorage.getItem('latitudeRetorno'))
-  
+
   }
 
 
@@ -83,9 +83,9 @@ export class HomePage implements OnInit {
         this.startPosition = response.coords;
         this.map.setCenter([this.startPosition.longitude, this.startPosition.latitude]);
         directions.setOrigin([this.startPosition.longitude, this.startPosition.latitude]);
-        this.map.setCenter([this.longRet, this.latRet]);
-        directions.setDestination([this.longRet, this.latRet]);
-     
+        // this.map.setCenter([this.longRet, this.latRet]);
+        // directions.setDestination([this.longRet, this.latRet]);
+
 
         // Add controle de geolocalização no mapa.
         this.map.addControl(new mapboxgl.GeolocateControl({
@@ -98,8 +98,11 @@ export class HomePage implements OnInit {
 
         this.busca.local().then((resp) => {
           if (resp) {
-            this.latitude1 = this.storage.setItem('latitudeRetorno', (resp.data.latitude));
-            this.longitude1 = this.storage.setItem('longitudeRetorno', (resp.data.longitude));
+            // this.latitude1 = localStorage.setItem('latitudeRetorno', (resp.data.latitude));
+            // this.longitude1 = localStorage.setItem('longitudeRetorno', (resp.data.longitude));
+            this.destinationPosition = resp.data;
+            this.map.setCenter([this.destinationPosition.latitude, this.destinationPosition.longitude]);
+            directions.setDestination([this.destinationPosition.longitude, this.destinationPosition.latitude]);
             console.log('dados recebidos', resp)
           }
 
