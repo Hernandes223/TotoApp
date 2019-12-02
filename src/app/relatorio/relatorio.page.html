@@ -1,20 +1,23 @@
 <ion-header>
-  <ion-toolbar color="secondary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Relatório</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Relatório</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label>Ultimo Local</ion-label>
-  </ion-item>
-  <ion-card>
     <ion-item>
-    <p>Bosque de Palermo</p>
-    <ion-icon slot="end" name="locate"></ion-icon>
-  </ion-item>
-  </ion-card>
+        <ion-label>Ultimo Local</ion-label>
+    </ion-item>
+    <ion-card *ngFor="let local of listLocal">
+        <ion-item>
+            <ion-card-content>
+                <p class="lat">{{local.latitude}} {{local.longitude}}
+                    <ion-icon slot="end" name="locate"></ion-icon>
+                </p>
+            </ion-card-content>
+        </ion-item>
+    </ion-card>
 </ion-content>

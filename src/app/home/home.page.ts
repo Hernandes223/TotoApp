@@ -4,6 +4,7 @@ import * as MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-d
 import * as mapboxgl from 'mapbox-gl';
 import { NavController } from '@ionic/angular';
 import { BuscaService } from '../buscaservice/busca.service';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
 declare var google;
 
@@ -36,6 +37,7 @@ export class HomePage implements OnInit {
     public navCtrl: NavController,
     private geolocation: Geolocation,
     public busca: BuscaService,
+    private storage: NativeStorage,
   ) {
     this.receberValor = localStorage.getItem('item')
   }
@@ -62,6 +64,8 @@ export class HomePage implements OnInit {
       unit: 'metric',
       profile: 'mapbox/driving-traffic',
       congestion: true,
+      alternatives: true,
+      distance: true,
       controls: {
         instructions: true,
         profileSwitcher: false,
@@ -74,8 +78,8 @@ export class HomePage implements OnInit {
     //Seta as posições
     this.geolocation.getCurrentPosition()
       .then((response) => {
-        // const longRet = parseFloat(localStorage.getItem('longitudeRetorno'))
-        // const latRet = parseFloat(localStorage.getItem('latitudeRetorno'))
+        // const longRet = parseFloat(localStorage.getItem('longitudeRetorno'));
+        // const latRet = parseFloat(localStorage.getItem('latitudeRetorno'));
         this.startPosition = response.coords;
         this.map.setCenter([this.startPosition.longitude, this.startPosition.latitude]);
         directions.setOrigin([this.startPosition.longitude, this.startPosition.latitude]);
@@ -94,8 +98,8 @@ export class HomePage implements OnInit {
 
         this.busca.local().then((resp) => {
           if (resp) {
-            this.latitude1 = localStorage.setItem('latitudeRetorno', (resp.data.latitude))
-            this.longitude1 = localStorage.setItem('longitudeRetorno', (resp.data.longitude))
+            this.latitude1 = this.storage.setItem('latitudeRetorno', (resp.data.latitude));
+            this.longitude1 = this.storage.setItem('longitudeRetorno', (resp.data.longitude));
             console.log('dados recebidos', resp)
           }
 
