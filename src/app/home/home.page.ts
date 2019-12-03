@@ -103,10 +103,12 @@ export class HomePage implements OnInit {
             this.destinationPosition = resp.data;
             this.map.setCenter([this.destinationPosition.latitude, this.destinationPosition.longitude]);
             directions.setDestination([this.destinationPosition.longitude, this.destinationPosition.latitude]);
-            setInterval( function(resp) {
-              this.destinationPosition = resp;
-              console.log( 'Executa infinitamente, 1 vez por segundo.' );
-            }, 1000 );
+            if (this.destinationPosition == resp.data){
+              setInterval( function(resp) {
+                this.destinationPosition = resp;
+                console.log( 'Executa infinitamente, 1 vez por segundo.' );
+              }, 1000 );
+            }
             console.log('dados recebidos', resp)
           }
 
