@@ -26,7 +26,6 @@ export class LoginPage implements OnInit {
     public menu : MenuController,
   ) { }
   ngOnInit() {
-    this.enableAuthenticatedMenu();
   }
   // Dismiss Login Modal
   dismissLogin() {
@@ -87,8 +86,4 @@ async toast(){
   //   toast.present();
   // } 
 
-  enableAuthenticatedMenu() {
-    this.menu.enable(false);
-
-  }
 }
