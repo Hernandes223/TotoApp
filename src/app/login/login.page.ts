@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController, LoadingController, ToastController } from '@ionic/angular';
+import { ModalController, NavController, LoadingController, ToastController, MenuController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
@@ -22,9 +22,11 @@ export class LoginPage implements OnInit {
     private navCtrl: NavController,
     private alertService: AlertService,
     public loadingController: LoadingController,
-    public toastController:ToastController
+    public toastController:ToastController,
+    public menu : MenuController,
   ) { }
   ngOnInit() {
+    this.enableAuthenticatedMenu();
   }
   // Dismiss Login Modal
   dismissLogin() {
@@ -85,4 +87,8 @@ async toast(){
   //   toast.present();
   // } 
 
+  enableAuthenticatedMenu() {
+    this.menu.enable(false);
+
+  }
 }
